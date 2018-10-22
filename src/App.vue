@@ -1,28 +1,45 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <index/>
+    <router-link to="/login">登陆</router-link>
+    <router-link to="/register">注册</router-link>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+//index是初始页面组件
+import  VueRouter from 'vue-router'
+import index from './components/index.vue'
+import login from './components/login.vue'
+import  register from './components/register.vue'
 
+//建立路由
+const routes = [
+    {
+        path: '/login',
+        component: login
+    },
+    {
+        path: '/register',
+        component: register
+    }
+];
+
+const router = new VueRouter({
+    routes: routes
+});
 export default {
   name: 'app',
+  router: router,
   components: {
-    HelloWorld
+    index: index,
+    login: login,
+    register: register
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
