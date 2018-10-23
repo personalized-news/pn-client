@@ -1,10 +1,5 @@
 <template>
-  <div id="app">
-    <index/>
-    <router-link to="/login">登陆</router-link>
-    <router-link to="/register">注册</router-link>
     <router-view></router-view>
-  </div>
 </template>
 
 <script>
@@ -17,6 +12,10 @@ import  register from './components/register.vue'
 //建立路由
 const routes = [
     {
+        path: '/',
+        component: index
+    },
+    {
         path: '/login',
         component: login
     },
@@ -27,6 +26,7 @@ const routes = [
 ];
 
 const router = new VueRouter({
+    mode: 'history',
     routes: routes
 });
 export default {
