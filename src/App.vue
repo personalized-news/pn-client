@@ -4,10 +4,10 @@
 
 <script>
 //index是初始页面组件
-import  VueRouter from 'vue-router'
+import VueRouter from 'vue-router'
 import index from './components/index.vue'
 import login from './components/login.vue'
-import  register from './components/register.vue'
+import register from './components/register.vue'
 
 //建立路由
 const routes = [
