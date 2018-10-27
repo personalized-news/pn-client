@@ -13,38 +13,38 @@
 </template>
 
 <script>
-  import axios  from 'axios'
-  export default {
-    name: "register",
-    methods: {
-      submit: function(){
-        let id =  document.querySelector('[type="text"]').value;
-        let ps = document.querySelectorAll('[type="password"]')[0].value;
-        let psAgain =  document.querySelector('[type="password"]')[1].value;
-        if(ps != psAgain){
-          alert('两次密码不一致');
-        }else{
-          axios({
-            method: 'post',
-            url: 'http://localhost:8001',
-            data: {
-              id: id,
-              ps: ps
-            }
-          }).then(function(response){
-            console.error(response);
-            if(response.data.status === 0){
-              console.log('请求成功');
-            }else {
-              console.log('请求失败');
-            }
-          }).catch(function(error){
-            console.log(error.toString());
-          })
-        }
+import axios from 'axios'
+export default {
+  name: 'register',
+  methods: {
+    submit: function () {
+      let id = document.querySelector('[type="text"]').value
+      let ps = document.querySelectorAll('[type="password"]')[0].value
+      let psAgain = document.querySelector('[type="password"]')[1].value
+      if (ps !== psAgain) {
+        alert('两次密码不一致')
+      } else {
+        axios({
+          method: 'post',
+          url: 'http://localhost:8001',
+          data: {
+            id: id,
+            ps: ps
+          }
+        }).then(function (response) {
+          console.error(response)
+          if (response.data.status === 0) {
+            console.log('请求成功')
+          } else {
+            console.log('请求失败')
+          }
+        }).catch(function (error) {
+          console.log(error.toString())
+        })
       }
     }
   }
+}
 </script>
 
 <style scoped>

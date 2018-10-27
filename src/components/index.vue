@@ -3,15 +3,15 @@
     <p>这里用放个logo</p>
     <nav>
       <router-link to="/user/login">登陆</router-link>
-      <router-link to="/user/signUp">注册</router-link>
+      <router-link to="/user/signup">注册</router-link>
     </nav>
   </header>
 </template>
 
 <script>
-    export default {
-        name: "index"
-    }
+export default {
+  name: 'index'
+}
 </script>
 
 <style scoped>
