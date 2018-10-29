@@ -9,7 +9,7 @@ Vue.config.productionTip = false
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
-  router,
+  router, // 注入路由，这样在整个应用中都有路由功能
   components: { App },
   template: '<App/>'
 })
