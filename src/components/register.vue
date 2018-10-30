@@ -18,30 +18,44 @@ export default {
   name: 'register',
   methods: {
     submit: function () {
+      let _this = this
       let id = document.querySelector('[type="text"]').value
       let ps = document.querySelectorAll('[type="password"]')[0].value
-      let psAgain = document.querySelector('[type="password"]')[1].value
-      if (ps !== psAgain) {
-        alert('两次密码不一致')
-      } else {
-        axios({
-          method: 'post',
-          url: 'http://localhost:8001',
-          data: {
-            id: id,
-            ps: ps
-          }
-        }).then(function (response) {
-          console.error(response)
-          if (response.data.status === 0) {
-            console.log('请求成功')
-          } else {
-            console.log('请求失败')
-          }
-        }).catch(function (error) {
-          console.log(error.toString())
-        })
+      let reps = document.querySelectorAll('[type="password"]')[1].value
+      console.log({
+        password: ps,
+        username: id
+      })
+      axios.defaults.headers = { // 设置axios的默认首部
+        'Content-type': 'application/x-www-form-urlencoded'
       }
+      axios.defaults.transformRequest = [function (data) {
+        let newData = ''
+        for (let k in data) { // 对数据进行编码
+          newData += encodeURIComponent(k) + '=' + encodeURIComponent(data[k]) + '&'
+        }
+        return newData
+      }]
+      axios({
+        method: 'post',
+        url: 'http://localhost:3000/user/signup',
+        data: {
+          username: id,
+          password: ps,
+          repassword: reps
+        }
+      }).then(function (response) {
+        if (response.data.status === 200) {
+          alert('注册成功！！赶快去登陆吧')
+          _this.$router.push({name: 'Login'}) // 导向登陆的路由
+        } else {
+          if (response.data.status === 0) {
+            alert(response.data.message)
+          }
+        }
+      }).catch(function (error) {
+        console.log(error.toString())
+      })
     }
   }
 }

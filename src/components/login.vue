@@ -13,29 +13,44 @@
 
 <script>
 import axios from 'axios'
+
 export default {
   name: 'login',
   methods: {
     submit: function () {
+      let _this = this
       let id = document.querySelector('[type="text"]').value
       let ps = document.querySelector('[type="password"]').value
       console.log({
         name: id,
         password: ps
       })
+      // 设置默认的请求头
+      axios.defaults.headers = {
+        'Content-type': 'application/x-www-form-urlencoded'
+      }
+      axios.defaults.transformRequest = [function (data) {
+        let newData = ''
+        for (let k in data) {
+          newData += encodeURIComponent(k) + '=' + encodeURIComponent(data[k]) + '&'
+        }
+        return newData
+      }]
       axios({
         method: 'post',
-        url: 'http://localhost:8001',
+        url: 'http://localhost:3000/user/login',
         data: {
-          id: id,
-          ps: ps
+          username: id,
+          password: ps
         }
       }).then(function (response) {
-        console.error(response)
-        if (response.data.status === 0) {
-          console.log('请求成功')
+        if (response.data.status === 200) {
+          alert('登陆成功')
+          _this.$router.push({name: 'Index', query: {userId: id}}) // 登陆成功之后导向Index路由
         } else {
-          console.log('请求失败')
+          if (response.data.status === 0) {
+            alert(response.data.message)
+          }
         }
       }).catch(function (error) {
         console.log(error.toString())
