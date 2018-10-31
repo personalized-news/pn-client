@@ -87,9 +87,7 @@ export default {
       for (let k in this.ruleForm2) { // 如果有一个数据没有值，就不要发送请求
         if (this.ruleForm2[k] === '') return
       }
-      console.log(1)
       let _this = this
-      console.log(this.ruleForm2)
       axios({
         method: 'post',
         url: 'http://localhost:3000/user/login',
