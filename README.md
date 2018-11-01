@@ -1,4 +1,7 @@
 # pn-web
+[![Travis CI](https://travis-ci.org/personalized-news/pn-web.svg?branch=master)](https://travis-ci.org/personalized-news/pn-web)
+[![deps](https://img.shields.io/hackage-deps/v/lens.svg)](https://github.com/personalized-news/pn-web/network/dependencies)
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 > Web for personalized news.
 
