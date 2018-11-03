@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Index from '@/components/index'
-import Login from '@/components/login'
-import register from '@/components/register'
+import Index from '@/views/index'
+import Login from '@/views/login'
+import Register from '@/views/register'
+
 Vue.use(Router)
 
 export default new Router({
@@ -20,8 +21,8 @@ export default new Router({
     },
     {
       path: '/user/signup',
-      name: 'register',
-      component: register
+      name: 'Register',
+      component: Register
     }
   ]
 })

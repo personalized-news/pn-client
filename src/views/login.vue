@@ -1,19 +1,46 @@
 <template>
-  <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
-    <el-form-item label="账号" prop="id">
-      <el-input v-model="ruleForm2.id"></el-input>
+  <el-form :model="LoginForm" status-icon ref="LoginForm" label-width="100px" class="demo-ruleForm">
+    <el-form-item label="账号" prop="username">
+      <el-input v-model="LoginForm.username"></el-input>
     </el-form-item>
-    <el-form-item label="密码" prop="pass">
-      <el-input type="password" v-model="ruleForm2.pass" autocomplete="off"></el-input>
+    <el-form-item label="密码" prop="password">
+      <el-input type="password" v-model="LoginForm.password" autocomplete="off"></el-input>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="submitForm('ruleForm2')">登陆</el-button>
-      <el-button @click="resetForm('ruleForm2')">重置</el-button>
+      <el-button type="primary" @click="submitForm('LoginForm')">登陆</el-button>
+      <el-button @click="resetForm('LoginForm')">重置</el-button>
     </el-form-item>
   </el-form>
 </template>
 
 <script>
+import { login } from '@/api/user'
+
+export default {
+  data () {
+    return {
+      LoginForm: {
+        username: '',
+        password: ''
+      }
+    }
+  },
+  methods: {
+    submitForm (formName) {
+      login(this.LoginForm.username, this.LoginForm.password)
+        .then(res => {
+          this.$router.push({path: '/'})
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    resetForm (formName) {
+      this.$refs[formName].resetFields()
+    }
+  }
+}
+/*
 import axios from 'axios'
 
 axios.defaults.transformRequest = [function (data) {
@@ -110,6 +137,7 @@ export default {
     }
   }
 }
+*/
 </script>
 
 <style scoped>
