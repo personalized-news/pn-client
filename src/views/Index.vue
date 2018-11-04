@@ -1,39 +1,28 @@
 <template>
 <div class="container">
   <div class="top">
-    <the-header :isLogin="isLogin"></the-header>
-    <!--用decodeURLComponent对传过来的数据进行解码-->
-    <div v-show="isLogin  === true">欢迎您！{{decodeURIComponent($route.query.userId)}}</div>
+    <the-header :isLogin="isLogin" :username="decodeURIComponent(this.$route.query.userId)"></the-header>
   </div>
   <div class="showNews">
     <NewsNav></NewsNav>
-    <div class="news"></div>
+    <div class="news">
+      <NewsItem></NewsItem>
+    </div>
   </div>
 </div>
 </template>
 
 <script>
-import { getNews } from '@/api/news'
 import TheHeader from '@/components/TheHeader'
-import NewsNav from '@/components/NewsNav/NewsNav'
+import NewsNav from '@/components/News/NewsNav'
+import NewsItem from '@/components/News/NewsItem'
 
 export default {
   name: 'PnIndex',
   components: {
     TheHeader,
-    NewsNav
-  },
-  props: {
-    userId: {
-      default: ''
-    }
-  },
-  mounted () {
-    // 通过api请求新闻数据
-    getNews()
-      .then(res => {
-        console.log(res)
-      })
+    NewsNav,
+    NewsItem
   },
   computed: {
     isLogin: function () {
@@ -47,16 +36,11 @@ export default {
 </script>
 
 <style scoped>
-  .top{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    margin-top: 20px;
-  }
+
   .container {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
     width: 100%;
     height: 100%;
     margin: 0 auto;

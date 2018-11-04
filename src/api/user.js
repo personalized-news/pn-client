@@ -49,13 +49,13 @@ function checkData (data) {
   }
   return true
 }
-export let sp = {
+export const sp = {
   checkId: checkId,
   signup: signup,
   checkData: checkData
 }
 
-export let lg = {
+export const lg = {
   checkId: checkId,
   login: login,
   checkData: checkData
