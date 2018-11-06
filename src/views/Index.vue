@@ -34,7 +34,7 @@ export default {
   },
   mounted: function () {
     getNews().then((res) => {
-      this.news = res.data.data
+      this.news = res.data.newsList
     }).catch((err) => {
       console.log(err.toString())
     })
