@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import index from '@/views/index'
+import Index from '@/views/Index'
 import Login from '@/views/Login'
 import Register from '@/views/Register'
 
@@ -11,17 +11,17 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Index',
-      component: index
+      name: 'PnIndex',
+      component: Index
     },
     {
       path: '/user/login',
-      name: 'Login',
+      name: 'UserLogin',
       component: Login
     },
     {
       path: '/user/signup',
-      name: 'Register',
+      name: 'UserRegister',
       component: Register
     }
   ]

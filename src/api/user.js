@@ -1,7 +1,7 @@
 import { stringify } from 'qs'
 import request from '@/utils/request'
 
-export function login (username, password) {
+function login (username, password) {
   return request({
     url: '/user/login',
     method: 'post',
@@ -12,7 +12,7 @@ export function login (username, password) {
   })
 }
 
-export function signup (username, password, repassword) {
+function signup (username, password, repassword) {
   return request({
     url: '/user/signup',
     method: 'post',
@@ -22,4 +22,41 @@ export function signup (username, password, repassword) {
       repassword
     })
   })
+}
+
+function checkId (username, kind) {
+  let url = ''
+  if (kind === 1) url = 'user/signup'
+  else url = 'user/login'
+  return request({ // requset是一个axios实例
+    url: url,
+    method: 'post',
+    data: stringify({
+      username
+    })
+  })
+}
+
+function checkData (data) {
+  // 当有数据为空时,不能发送请求
+  for (let k in data) {
+    if (data[k] === '') {
+      if (k === 'password') alert('密码不能为空')
+      else if (k === 'username') alert('账号不能为空')
+      else alert('请再次输入密码')
+      return false
+    }
+  }
+  return true
+}
+export const sp = {
+  checkId: checkId,
+  signup: signup,
+  checkData: checkData
+}
+
+export const lg = {
+  checkId: checkId,
+  login: login,
+  checkData: checkData
 }
