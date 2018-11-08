@@ -29,16 +29,6 @@ export default {
   },
   mounted: function () {
     getNews().then((res) => {
-      // this.$store.dispatch('selectNews', 'recommend').then(
-      //   () => {
-      //     if (true) {
-      //       Vue.set(this.$store.getters.allNews, this.$store.getters.allNews.length, {
-      //         kind: 'recommend', // 推荐的新闻
-      //         news: res.data.data
-      //       })
-      //     }
-      //     console.log(this.$store.getters.allNews)
-      //   })
       // 防止重复存储
       if (this.$store.getters.allNews.findIndex((item) => item.kind === 'recommend') === -1) {
         Vue.set(this.$store.getters.allNews, this.$store.getters.allNews.length, {
