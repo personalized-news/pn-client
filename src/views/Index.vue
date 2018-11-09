@@ -6,7 +6,9 @@
   <div class="showNews">
     <NewsNav></NewsNav>
     <div class="news">
-      <NewsItem></NewsItem>
+      <li v-for="item in news" :key="item.id">
+        <newsItem :newsItem="item" ></newsItem>
+      </li>
     </div>
   </div>
 </div>
@@ -16,13 +18,26 @@
 import TheHeader from '@/components/TheHeader'
 import NewsNav from '@/components/News/NewsNav'
 import NewsItem from '@/components/News/NewsItem'
+import {getNews} from '@/api/news'
 
 export default {
   name: 'PnIndex',
+  data: function () {
+    return {
+      news: []
+    }
+  },
   components: {
     TheHeader,
     NewsNav,
     NewsItem
+  },
+  mounted: function () {
+    getNews().then((res) => {
+      this.news = res.data.newsList
+    }).catch((err) => {
+      console.log(err.toString())
+    })
   },
   computed: {
     isLogin: function () {
@@ -51,4 +66,9 @@ export default {
     flex-direction: row;
     justify-content: space-around;
   }
+  .news {
+    width: 45%;
+    height: 30%;
+    margin-right: 20%;
+   }
 </style>
