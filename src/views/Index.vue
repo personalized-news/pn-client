@@ -19,14 +19,9 @@ import TheHeader from '@/components/TheHeader'
 import NewsNav from '@/components/News/NewsNav'
 import NewsItem from '@/components/News/NewsItem'
 import {getNews} from '@/api/news'
-
+import Vue from 'vue'
 export default {
   name: 'PnIndex',
-  data: function () {
-    return {
-      news: []
-    }
-  },
   components: {
     TheHeader,
     NewsNav,
@@ -34,7 +29,14 @@ export default {
   },
   mounted: function () {
     getNews().then((res) => {
-      this.news = res.data.newsList
+      // 防止重复存储
+      if (this.$store.getters.allNews.findIndex((item) => item.kind === 'recommend') === -1) {
+        Vue.set(this.$store.getters.allNews, this.$store.getters.allNews.length, {
+          kind: 'recommend', // 推荐的新闻
+          news: res.data.data
+        })
+      }
+      console.log(this.$store.getters.allNews)
     }).catch((err) => {
       console.log(err.toString())
     })
@@ -45,7 +47,13 @@ export default {
       // 用isLogin决定顶层的导航显示
       // 刚进入页面时.this.$route.query是空对象
       if (this.$route.query.userId === undefined) { return false } else return this.$route.query.userId.length > 0
+    },
+    news: function () {
+      if (this.$store.getters.allNews[0]) { return this.$store.getters.allNews[0].news } else return []
     }
+  },
+  destroyed: function () {
+    console.log('销毁Index组件')
   }
 }
 </script>
