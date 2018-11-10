@@ -12,7 +12,7 @@
             <span>新闻类别</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item  v-for="item in newsChannel"  :index="item.channelId" :key="item.channelId">{{item.name}}</el-menu-item>
+            <el-menu-item  v-for="item in newsChannel"  :index="item.channelId" :key="item.channelId" @click="$emit('get-news', item.name)">{{item.name}}</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
       </el-menu>

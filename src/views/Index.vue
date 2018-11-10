@@ -4,7 +4,7 @@
     <the-header :isLogin="isLogin" :username="decodeURIComponent(this.$route.query.userId)"></the-header>
   </div>
   <div class="showNews">
-    <NewsNav></NewsNav>
+    <NewsNav @get-news="get"></NewsNav>
     <div class="news">
       <li v-for="item in news" :key="item.id">
         <newsItem :newsItem="item" ></newsItem>
@@ -20,6 +20,7 @@ import NewsNav from '@/components/News/NewsNav'
 import NewsItem from '@/components/News/NewsItem'
 import {getNews} from '@/api/news'
 import Vue from 'vue'
+
 export default {
   name: 'PnIndex',
   components: {
@@ -28,18 +29,31 @@ export default {
     NewsItem
   },
   mounted: function () {
-    getNews().then((res) => {
-      // 防止重复存储
+    getNews('recommend').then((res) => {
+      console.log(this.$store)
       if (this.$store.getters.allNews.findIndex((item) => item.kind === 'recommend') === -1) {
         Vue.set(this.$store.getters.allNews, this.$store.getters.allNews.length, {
-          kind: 'recommend', // 推荐的新闻
+          kind: 'recommend', // 个性化推荐的新闻
           news: res.data.data
         })
       }
-      console.log(this.$store.getters.allNews)
     }).catch((err) => {
       console.log(err.toString())
     })
+  },
+  methods: {
+    get: function (kind) {
+      getNews(kind).then((res) => {
+        if (this.$store.getters.allNews.findIndex((item) => item.kind === kind) === -1) {
+          Vue.set(this.$store.getters.allNews, this.$store.getters.allNews.length, {
+            kind: kind, // 个性化推荐的新闻
+            news: res.data.data
+          })
+        }
+      }).catch((err) => {
+        console.log(err.toString())
+      })
+    }
   },
   computed: {
     isLogin: function () {

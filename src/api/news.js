@@ -1,10 +1,15 @@
 import request from '@/utils/request'
 
-function getNews () {
+function getNews (kind = 'recommend') {
   return request({
     method: 'get',
-    url: '/news'
+    url: '/news',
+    data: {
+      kind: kind
+    }
   })
 }
 
-export {getNews}
+export {
+  getNews
+}
