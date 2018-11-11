@@ -9,7 +9,7 @@
             <span>{{newsItem.channelName}}</span>
             <span>{{newsItem.source}}</span>
             <time class="time">{{ newsItem.pubDate}}</time>
-            <el-button type="text" class="button">查看</el-button>
+            <el-button type="text" class="button" @click="toDetail">查看</el-button>
           </div>
         </div>
       </el-card>
@@ -47,10 +47,29 @@
   .clearfix:after {
     clear: both
   }
+  a{
+    color: #aeacac;
+  }
+  a:hover{
+    color: #000;
+  }
 </style>
 
 <script>
 export default {
-  props: ['newsItem']
+  props: ['newsItem'],
+  methods: {
+    toDetail: function () {
+      this.$router.push({path: '/news/newsDetail',
+        query: {
+          title: encodeURIComponent(this.newsItem.title),
+          pubDate: encodeURIComponent(this.newsItem.pubDate),
+          desc: encodeURIComponent(this.newsItem.desc),
+          channelName: encodeURIComponent(this.newsItem.channelName)
+        }
+      })
+      console.log(this.newsItem)
+    }
+  }
 }
 </script>

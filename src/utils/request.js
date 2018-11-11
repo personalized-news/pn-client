@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { Message } from 'element-ui'
+// import config from '../../config/dev.env'
 
 // import store from '../store'
 // import { getToken } from '@/util/auth'
@@ -12,15 +13,6 @@ const service = axios.create({
 service.defaults.writeCredentials = true
 // 设置请求的默认首部
 service.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded'
-// 在请求发送之前将数据进行编码
-// service.defaults.transformRequest = [function (data) {
-//   let newData = ''
-//   for (let k in data) { // 对数据进行编码
-//     newData += encodeURIComponent(k) + '=' + encodeURIComponent(data[k]) + '&'
-//   }
-//   return newData
-// }]
-
 service.interceptors.request.use(req => {
   /* if (store.getters.token) {
     req.headers['X-Token'] = getToken()
