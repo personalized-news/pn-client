@@ -60,7 +60,7 @@ export default {
   props: ['newsItem'],
   methods: {
     toDetail: function () {
-      this.$router.push({path: '/news/newsDetail',
+      this.$router.push({path: '/news/detail',
         query: {
           title: encodeURIComponent(this.newsItem.title),
           pubDate: encodeURIComponent(this.newsItem.pubDate),
