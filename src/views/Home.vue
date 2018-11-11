@@ -36,10 +36,10 @@ export default {
     getNews('recommend').then((res) => {
       this.$store.dispatch('addNews', {
         kind: 'recommend',
-        main: res.data.newsList
+        main: res.newsList
       })
-      this.news = res.data.newsList
-      console.log(this.news, res.data)
+      this.news = res.newsList
+      console.log(this.news, res)
     }).catch((err) => {
       console.log(err.toString())
     })
@@ -49,9 +49,9 @@ export default {
       getNews(kind).then((res) => {
         this.$store.dispatch('addNews', {
           kind: kind,
-          main: res.data.newsList
+          main: res.newsList
         })
-        this.news = res.data.newsList
+        this.news = res.newsList
       }).catch((err) => {
         console.log(err.toString())
       })

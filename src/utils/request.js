@@ -26,7 +26,7 @@ service.interceptors.request.use(req => {
 
 service.interceptors.response.use(res => {
   console.log(res)
-  return res
+  return res.data
 }, err => {
   console.log(err)
   Message({

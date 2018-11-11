@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Index from '@/views/Index'
-import Login from '@/views/Login'
-import Register from '@/views/Register'
+import Home from '@/views/Home'
 import NewsDetail from '@/views/NewsDetail'
 
 Vue.use(Router)
@@ -12,21 +10,11 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'PnIndex',
-      component: Index
+      name: 'Home',
+      component: Home
     },
     {
-      path: '/user/login',
-      name: 'UserLogin',
-      component: Login
-    },
-    {
-      path: '/user/signup',
-      name: 'UserRegister',
-      component: Register
-    },
-    {
-      path: '/news/newsDetail',
+      path: '/news/detail',
       name: 'newsDetail',
       component: NewsDetail
     }
