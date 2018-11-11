@@ -1,18 +1,18 @@
 import axios from 'axios'
 import { Message } from 'element-ui'
+// import config from '../../config/dev.env'
 
 // import store from '../store'
 // import { getToken } from '@/util/auth'
 
 const service = axios.create({
-  baseURL: process.env.BASE_API,
+  baseURL: 'http://localhost:3000',
   timeout: 5000
 })
 // 表示在跨域请求时需要使用凭证
 service.defaults.writeCredentials = true
 // 设置请求的默认首部
 service.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded'
-
 service.interceptors.request.use(req => {
   /* if (store.getters.token) {
     req.headers['X-Token'] = getToken()

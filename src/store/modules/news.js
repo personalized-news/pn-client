@@ -3,17 +3,18 @@ const news = {
     allNews: [] // 存放所有的新闻
   },
   mutations: {
-    SELECT_NEWS: (states, kind) => {
-      console.log(kind)
-      console.log(states.allNews.findIndex((item) => item.kind === kind))
-      if (states.allNews.findIndex((item) => item.kind === kind) === -1) {
-        return true
-      } else return false
+    ADD_NEWS: (states, news) => {
+      if (states.allNews.findIndex((item) => item.kind === news.kind) === -1) {
+        states.allNews.push({
+          kind: news.kind,
+          news: news.main
+        })
+      }
     }
   },
   actions: {
-    selectNews ({commit}, kind) {
-      commit('SELECT_NEWS', kind)
+    addNews ({commit}, news) {
+      commit('ADD_NEWS', news)
     }
   }
 }
