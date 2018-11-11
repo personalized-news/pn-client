@@ -9,7 +9,7 @@
             <span>{{newsItem.channelName}}</span>
             <span>{{newsItem.source}}</span>
             <time class="time">{{ newsItem.pubDate}}</time>
-            <el-button type="text" class="button" @click="toDetail">查看</el-button>
+            <el-button type="text" class="button" @click="toDetail" >查看</el-button>
           </div>
         </div>
       </el-card>
