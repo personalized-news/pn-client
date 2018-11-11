@@ -65,8 +65,6 @@ export default {
         id: this.newsItem.id,
         kind: this.newsItem.channelName
       })
-      // this.$router.push({path: 'news/detail'})
-      // console.log(href)
       window.open(href, '_blank')
     }
   }
