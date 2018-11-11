@@ -2,31 +2,49 @@
   <header>
     <p>Personalized News</p>
     <div>
-      <nav v-show="isLogin === false">
-        <router-link to="/user/login">登录</router-link>
-        <router-link to="/user/signup">注册</router-link>
+      <nav v-show="!username">
+        <login-dialog></login-dialog>
+        <register-dialog></register-dialog>
       </nav>
-      <div v-show="isLogin === true" class="userInfo">
-        <div>欢迎您！{{username}}</div>
+      <div v-show="username" class="userInfo">
+        <span>欢迎您！{{username}}</span>
+        <el-button type="text" @click="userLogout" size="medium">登出</el-button>
       </div>
     </div>
   </header>
 </template>
-
 <script>
+import LoginDialog from './LoginDialog'
+import RegisterDialog from './RegisterDialog'
+import { logout } from '@/api/user'
+import { getToken, removeToken } from '@/utils/auth'
+
 export default {
-  props: {
-    isLogin: {
-      default: false
+  components: { LoginDialog, RegisterDialog },
+  data () {
+    return {
+      username: ''
+    }
+  },
+  created () {
+    this.getUsername()
+  },
+  methods: {
+    getUsername () {
+      this.username = getToken()
     },
-    username: {
-      default: ''
+    userLogout () {
+      removeToken()
+      logout()
+        .then(res => {
+          this.getUsername()
+        })
     }
   }
 }
+
 </script>
 <style scoped>
-
 header {
   display: flex;
   flex-direction: row;
@@ -34,6 +52,7 @@ header {
   width: 100%;
   margin-top: 20px;
 }
+
 header a {
   padding: 5px;
   color: #000;
@@ -42,4 +61,5 @@ header a {
 header a:hover {
   border: 1px solid #000;
 }
+
 </style>
