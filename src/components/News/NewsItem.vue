@@ -60,15 +60,14 @@ export default {
   props: ['newsItem'],
   methods: {
     toDetail: function () {
-      this.$router.push({path: '/news/detail',
-        query: {
-          title: encodeURIComponent(this.newsItem.title),
-          pubDate: encodeURIComponent(this.newsItem.pubDate),
-          desc: encodeURIComponent(this.newsItem.desc),
-          channelName: encodeURIComponent(this.newsItem.channelName)
-        }
+      const {href} = this.$router.resolve({path: 'news/detail'})
+      this.$store.dispatch('selectNews', {
+        id: this.newsItem.id,
+        kind: this.newsItem.channelName
       })
-      console.log(this.newsItem)
+      // this.$router.push({path: 'news/detail'})
+      // console.log(href)
+      window.open(href, '_blank')
     }
   }
 }

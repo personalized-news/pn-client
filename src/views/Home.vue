@@ -34,12 +34,12 @@ export default {
   },
   mounted: function () {
     getNews('recommend').then((res) => {
+      console.log(res)
       this.$store.dispatch('addNews', {
         kind: 'recommend',
         main: res.newsList
       })
       this.news = res.newsList
-      console.log(this.news, res)
     }).catch((err) => {
       console.log(err.toString())
     })

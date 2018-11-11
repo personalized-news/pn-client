@@ -43,7 +43,7 @@ export default {
               setToken(this.LoginForm.username)
               this.dialogFormVisible = false
               this.$message({ message: '登录成功', type: 'success' })
-              this.reload()
+              // this.reload()
             } else {
               this.$message.error(res.message)
             }

@@ -1,15 +1,25 @@
 <template>
   <div class="container">
-    <header>{{decodeURIComponent(this.$route.query.title)}}</header>
-    <span>{{decodeURIComponent(this.$route.query.pubDate)}}</span>
-    <main>{{decodeURIComponent(this.$route.query.desc)}}</main>
-    <span>{{decodeURIComponent(this.$route.query.channelName)}}</span>
+    <header>{{news.title}}</header>
+    <span>{{news.pubDate}}</span>
+    <main>{{news.desc}}</main>
+    <span>{{news.channelName}}</span>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'NewsDetail'
+  name: 'NewsDetail',
+  data: function () {
+    return {
+      news: {}
+    }
+  },
+  mounted: function () {
+    // console.log(sessionStorage.getItem('news'))
+    this.news = JSON.parse(sessionStorage.getItem('news'))
+    // this.news = this.$store.getters.newsDetail
+  }
 }
 </script>
 
