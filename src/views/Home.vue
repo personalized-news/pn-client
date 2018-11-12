@@ -34,7 +34,6 @@ export default {
   },
   created: function () {
     getNews('recommend').then((res) => {
-      console.log(res)
       this.$store.dispatch('addNews', {
         kind: 'recommend',
         main: res.newsList

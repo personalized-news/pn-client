@@ -60,14 +60,12 @@ export default {
   props: ['newsItem'],
   methods: {
     toDetail: function () {
-      // const {href} = this.$router.resolve({path: 'news/detail'})
+      const {href} = this.$router.resolve({path: 'news/detail'})
       this.$store.dispatch('selectNews', {
         id: this.newsItem.id,
         kind: this.newsItem.channelName
       })
-      this.$router.push({path: 'news/detail'})
-      // console.log(href)
-      // window.open(href, '_blank')
+      window.open(href, '_blank')
     }
   }
 }
