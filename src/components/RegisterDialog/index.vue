@@ -7,10 +7,10 @@
           <el-input v-model="RegisterForm.username" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="密码" :label-width="formLabelWidth">
-          <el-input v-model="RegisterForm.password" autocomplete="off"></el-input>
+          <el-input type="password" v-model="RegisterForm.password" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="确认密码" :label-width="formLabelWidth">
-          <el-input v-model="RegisterForm.repassword" autocomplete="off"></el-input>
+          <el-input type="password" v-model="RegisterForm.repassword" autocomplete="off"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">

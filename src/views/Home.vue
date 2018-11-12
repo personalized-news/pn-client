@@ -32,7 +32,7 @@ export default {
       news: []
     }
   },
-  mounted: function () {
+  created: function () {
     getNews('recommend').then((res) => {
       console.log(res)
       this.$store.dispatch('addNews', {

@@ -3,7 +3,7 @@
     <p>Personalized News</p>
     <div>
       <nav v-show="!username">
-        <login-dialog></login-dialog>
+        <login-dialog @getName="getUsername"></login-dialog>
         <register-dialog></register-dialog>
       </nav>
       <div v-show="username" class="userInfo">
@@ -21,9 +21,14 @@ import { getToken, removeToken } from '@/utils/auth'
 
 export default {
   components: { LoginDialog, RegisterDialog },
-  data () {
+  data: function () {
     return {
-      username: ''
+      userName: ''
+    }
+  },
+  computed: {
+    username: function () {
+      return this.userName
     }
   },
   created () {
@@ -31,7 +36,7 @@ export default {
   },
   methods: {
     getUsername () {
-      this.username = getToken()
+      this.userName = getToken() // 在刚登入的时候，如果cookie中的用户信息还在的话,就直接显示登陆状态
     },
     userLogout () {
       removeToken()

@@ -15,7 +15,7 @@ export default {
       news: {}
     }
   },
-  mounted: function () {
+  created: function () {
     // console.log(sessionStorage.getItem('news'))
     this.news = JSON.parse(sessionStorage.getItem('news'))
     // this.news = this.$store.getters.newsDetail
