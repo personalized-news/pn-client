@@ -7,7 +7,7 @@
           <el-input v-model="LoginForm.username" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="密码" :label-width="formLabelWidth">
-          <el-input v-model="LoginForm.password" autocomplete="off"></el-input>
+          <el-input type="password" v-model="LoginForm.password" autocomplete="off"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -43,7 +43,7 @@ export default {
               setToken(this.LoginForm.username)
               this.dialogFormVisible = false
               this.$message({ message: '登录成功', type: 'success' })
-              this.reload()
+              this.$emit('getName')
             } else {
               this.$message.error(res.message)
             }

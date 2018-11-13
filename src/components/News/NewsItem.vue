@@ -9,7 +9,7 @@
             <span>{{newsItem.channelName}}</span>
             <span>{{newsItem.source}}</span>
             <time class="time">{{ newsItem.pubDate}}</time>
-            <el-button type="text" class="button" @click="toDetail">查看</el-button>
+            <el-button type="text" class="button" @click="toDetail" >查看</el-button>
           </div>
         </div>
       </el-card>
@@ -60,15 +60,12 @@ export default {
   props: ['newsItem'],
   methods: {
     toDetail: function () {
-      this.$router.push({path: '/news/detail',
-        query: {
-          title: encodeURIComponent(this.newsItem.title),
-          pubDate: encodeURIComponent(this.newsItem.pubDate),
-          desc: encodeURIComponent(this.newsItem.desc),
-          channelName: encodeURIComponent(this.newsItem.channelName)
-        }
+      const {href} = this.$router.resolve({path: 'news/detail'})
+      this.$store.dispatch('selectNews', {
+        id: this.newsItem.id,
+        kind: this.newsItem.channelName
       })
-      console.log(this.newsItem)
+      window.open(href, '_blank')
     }
   }
 }
