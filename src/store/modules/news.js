@@ -20,7 +20,7 @@ const news = {
       if ((newsIndex = states.allNews[index].news.findIndex((item) => item.id === news.id)) !== -1) {
         states.newsDetail = states.allNews[index].news[newsIndex] // 选出所需的新闻
         console.log(states.newsDetail)
-        sessionStorage.setItem('news', JSON.stringify(states.newsDetail))
+        sessionStorage.setItem('news', JSON.stringify(states.newsDetail)) // 把对象存在lessionStorage中
       }
     }
   },
