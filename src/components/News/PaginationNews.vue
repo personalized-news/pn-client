@@ -30,7 +30,8 @@ export default {
 </script>
 
 <style scoped>
-  /*.container{*/
-    /*position: fixed;*/
-  /*}*/
+  .container{
+    position: absolute;
+    bottom: -110%;
+  }
 </style>

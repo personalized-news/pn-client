@@ -75,7 +75,11 @@ export default {
         this.end = this.end === 4 ? 4 : this.end - 4
         this.showNews = this.news.slice(this.st, this.end)
       } else { // 点击确定的页数
-
+        let pageNumber = document.querySelector('.active')
+        pageNumber = parseInt(pageNumber.innerText) // 获取当前页数
+        this.st = (pageNumber - 1) * 4
+        this.end = pageNumber * 4
+        this.showNews = this.news.slice(this.st, this.end)
       }
     }
   },
