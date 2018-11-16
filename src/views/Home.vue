@@ -6,9 +6,10 @@
   <div class="showNews">
     <NewsNav @get-news="get"></NewsNav>
     <div class="news">
-      <li v-for="item in news" :key="item.id">
+      <li v-for="item in showNews" :key="item.id">
         <newsItem :newsItem="item" ></newsItem>
       </li>
+      <PaginationNews :newsNumber="newsNumber" @changePage="changePage"></PaginationNews>
     </div>
   </div>
 </div>
@@ -18,6 +19,7 @@
 import TheHeader from '@/components/TheHeader'
 import NewsNav from '@/components/News/NewsNav'
 import NewsItem from '@/components/News/NewsItem'
+import PaginationNews from '@/components/News/PaginationNews'
 import {getNews} from '@/api/news'
 
 export default {
@@ -25,11 +27,16 @@ export default {
   components: {
     TheHeader,
     NewsNav,
-    NewsItem
+    NewsItem,
+    PaginationNews
   },
   data: function () {
     return {
-      news: []
+      showNews: [],
+      news: [],
+      newsNumber: 10,
+      st: 0,
+      end: 4
     }
   },
   created: function () {
@@ -38,7 +45,10 @@ export default {
         kind: 'recommend',
         main: res.newsList
       })
-      this.news = res.newsList
+      this.newsNumber = parseInt(res.newsList.length / 4) * 10 // 记录展示新闻需要的页数
+      this.news = res.newsList.slice(0, this.newsNumber / 10 * 4) // 只记录4的倍数的新闻
+      this.showNews = this.news.slice(this.st, this.end) // 每页展示四则新闻
+      console.log(this.newsNumber)
     }).catch((err) => {
       console.log(err.toString())
     })
@@ -54,6 +64,23 @@ export default {
       }).catch((err) => {
         console.log(err.toString())
       })
+    },
+    changePage: function (action) {
+      if (action === 'next') { // 点击下一页
+        this.st = this.end === this.news.length ? 0 : this.st + 4
+        this.end = this.end === this.news.length ? 4 : this.end + 4
+        this.showNews = this.news.slice(this.st, this.end)
+      } else if (action === 'pre') { // 点击前一页
+        this.st = this.st === 0 ? this.news.length - 4 : this.st - 4
+        this.end = this.end === 4 ? 4 : this.end - 4
+        this.showNews = this.news.slice(this.st, this.end)
+      } else { // 点击确定的页数
+        let pageNumber = document.querySelector('.active')
+        pageNumber = parseInt(pageNumber.innerText) // 获取当前页数
+        this.st = (pageNumber - 1) * 4
+        this.end = pageNumber * 4
+        this.showNews = this.news.slice(this.st, this.end)
+      }
     }
   },
   computed: {
