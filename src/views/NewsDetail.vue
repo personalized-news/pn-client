@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <header class="item"><h1>{{news.title}}</h1></header>
+    <span class="item">{{news.source}}</span>
     <span class="item">{{news.pubDate}}</span>
     <img class="item" v-show="news.havePic" :src="news.havePic === true ? news.imageurls[0].url: ''" alt="无">
     <main class="item">{{news.desc}}</main>
