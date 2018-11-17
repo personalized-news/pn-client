@@ -1,5 +1,5 @@
 <template>
-<div class="container">
+<div>
   <div class="block">
     <el-pagination
       layout="prev, pager, next"
@@ -30,8 +30,4 @@ export default {
 </script>
 
 <style scoped>
-  .container{
-    position: absolute;
-    bottom: -110%;
-  }
 </style>
