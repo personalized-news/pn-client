@@ -31,7 +31,5 @@ export default {
 
 <style scoped>
   .container{
-    position: absolute;
-    bottom: -110%;
   }
 </style>

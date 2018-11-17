@@ -44,4 +44,8 @@ export default {
     color: #999;
     font-size: 14px;
   }
+  img {
+    width: 50%;
+    height: 40%;
+  }
 </style>
