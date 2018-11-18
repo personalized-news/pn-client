@@ -1,8 +1,8 @@
 <template>
   <el-row>
     <el-col>
-      <el-card :body-style="{ padding: '0px' }">
-        <img :src="newsItem.havePic === true ? newsItem.imageurls[0].url: ''" class="image">
+      <el-card :body-style="CardStyle">
+        <img v-show="newsItem.havePic" :src="newsItem.havePic === true ? newsItem.imageurls[0].url: ''" class="image">
         <div style="padding: 14px;">
           <span>{{newsItem.title}}</span>
           <div class="bottom clearfix">
@@ -35,6 +35,7 @@
 
   .image {
     width: 30%;
+    height: 40%;
     display: block;
   }
 
@@ -58,6 +59,14 @@
 <script>
 export default {
   props: ['newsItem'],
+  data: function () {
+    return {
+      CardStyle: {
+        display: 'flex',
+        flexDirection: 'row'
+      }
+    }
+  },
   methods: {
     toDetail: function () {
       const {href} = this.$router.resolve({path: 'news/detail'})
