@@ -3,7 +3,7 @@
     <header class="item"><h1>{{news.title}}</h1></header>
     <span class="item">{{news.pubDate}}</span>
     <img class="item" v-show="news.havePic" :src="news.havePic === true ? news.imageurls[0].url: ''" alt="无">
-    <main class="item">{{news.desc}}</main>
+    <main class="item">{{main}}</main>
     <span class="item kind">{{news.channelName}}</span>
   </div>
 </template>
@@ -13,13 +13,19 @@ export default {
   name: 'NewsDetail',
   data: function () {
     return {
-      news: {}
+      news: {},
+      main: ''
     }
   },
   created: function () {
     // console.log(sessionStorage.getItem('news'))
     this.news = JSON.parse(sessionStorage.getItem('news'))
     // this.news = this.$store.getters.newsDetail
+    for (let content of this.news.allList.slice(1)) {
+      if (typeof content !== 'object') {
+        this.main += content
+      }
+    }
   },
   beforeDestroy: function () {
     sessionStorage.clear()
