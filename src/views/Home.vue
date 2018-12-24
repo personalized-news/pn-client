@@ -48,7 +48,6 @@ export default {
       this.newsNumber = parseInt(res.newsList.length / 4) * 10 // 记录展示新闻需要的页数
       this.news = res.newsList.slice(0, this.newsNumber / 10 * 4) // 只记录4的倍数的新闻
       this.showNews = this.news.slice(this.st, this.end) // 每页展示四则新闻
-      console.log(this.newsNumber)
     }).catch((err) => {
       console.log(err.toString())
     })
