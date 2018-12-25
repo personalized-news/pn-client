@@ -9,7 +9,7 @@
       <li v-for="item in showNews" :key="item.id">
         <newsItem :newsItem="item" ></newsItem>
       </li>
-      <PaginationNews :newsNumber="this.newNumber"></PaginationNews>
+      <PaginationNews :newsNumber="this.newNumber" @get="get"></PaginationNews>
     </div>
   </div>
 </div>

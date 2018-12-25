@@ -1,12 +1,11 @@
 <template>
-<div>
     <div class="block">
       <el-pagination
+        @current-change="getNews"
         layout="prev, pager, next"
         :total="1000">
       </el-pagination>
     </div>
-</div>
 </template>
 
 <script>
@@ -19,6 +18,9 @@ export default {
   methods: {
     change: function (kind) {
       console.log(event)
+    },
+    getNews: function () {
+      this.$emit('get')
     }
   }
 }
