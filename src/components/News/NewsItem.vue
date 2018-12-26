@@ -71,8 +71,8 @@ export default {
     toDetail: function () {
       const {href} = this.$router.resolve({path: 'news/detail'})
       this.$store.dispatch('selectNews', {
-        id: this.newsItem.id,
-        kind: this.newsItem.channelName
+        id: this.newsItem.id
+        // kind: this.newsItem.channelName
       })
       window.open(href, '_blank')
     }

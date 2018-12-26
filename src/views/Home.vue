@@ -39,7 +39,10 @@ export default {
   },
   created: function () {
     getNews('recommend').then((res) => {
-      if (res.newsList) { this.showNews = res.newsList }
+      if (res.newsList) {
+        this.showNews = res.newsList
+        this.$store.dispatch('addNews', res.newsList)
+      }
     }).catch((err) => {
       this.$message.error(err.toString())
     })

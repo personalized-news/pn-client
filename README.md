@@ -3,7 +3,7 @@
 [![deps](https://img.shields.io/hackage-deps/v/lens.svg)](https://github.com/personalized-news/pn-web/network/dependencies)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
-> Web for personalized news.
+> Client for personalized news.
 
 ## Build Setup
 

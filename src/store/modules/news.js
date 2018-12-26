@@ -5,21 +5,20 @@ const news = {
   },
   mutations: {
     ADD_NEWS: (states, news) => {
-      console.log(states.allNews)
-      if (states.allNews.findIndex((item) => item.kind === news.kind) === -1) {
-        states.allNews.push({
-          kind: news.kind,
-          news: news.main
-        })
-      }
+      console.log('要存在state里的数据', news)
+      states.allNews = news
+      // if (states.allNews.findIndex((item) => item.kind === news.kind) === -1) {
+      //   states.allNews.push({
+      //     kind: news.kind,
+      //     news: news.main
+      //   })
+      // }
     },
     SELECT_NEWS: (states, news) => {
-      let index, newsIndex
-      index = states.allNews.findIndex((item) => item.kind === 'recommend') // index记录这则新闻所在的大类的在数组里的位置
-      if (index === -1) return
-      if ((newsIndex = states.allNews[index].news.findIndex((item) => item.id === news.id)) !== -1) {
-        states.newsDetail = states.allNews[index].news[newsIndex] // 选出所需的新闻
-        console.log(states.newsDetail)
+      // news 包含查看新闻的id
+      let newsIndex
+      if ((newsIndex = states.allNews.findIndex((item) => item.id === news.id)) !== -1) {
+        states.newsDetail = states.allNews[newsIndex] // 选出所需的新闻
         sessionStorage.setItem('news', JSON.stringify(states.newsDetail)) // 把对象存在lessionStorage中
       }
     }
