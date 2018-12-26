@@ -41,7 +41,7 @@ export default {
     getNews('recommend').then((res) => {
       if (res.newsList) { this.showNews = res.newsList }
     }).catch((err) => {
-      console.log(err.toString())
+      this.$message.error(err.toString())
     })
   },
   methods: {
@@ -49,7 +49,7 @@ export default {
       getNews(kind).then((res) => {
         if (res.newsList) { this.showNews = res.newsList }
       }).catch((err) => {
-        console.log(err.toString())
+        this.$message.error(err.toString())
       })
     }
   },
