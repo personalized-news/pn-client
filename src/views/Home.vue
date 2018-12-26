@@ -9,7 +9,7 @@
       <li v-for="item in showNews" :key="item.id">
         <newsItem :newsItem="item" ></newsItem>
       </li>
-      <PaginationNews :newsNumber="this.newNumber" @get="get"></PaginationNews>
+      <PaginationNews :newsNumber="this.newNumber" :get="get"></PaginationNews>
     </div>
   </div>
 </div>
@@ -39,13 +39,17 @@ export default {
   },
   created: function () {
     getNews('recommend').then((res) => {
-      if (res.newsList) { this.showNews = res.newsList }
+      if (res.newsList) {
+        this.showNews = res.newsList
+        this.$store.dispatch('addNews', res.newsList)
+      }
     }).catch((err) => {
       this.$message.error(err.toString())
     })
   },
   methods: {
     get: function (kind) {
+      console.log(this)
       getNews(kind).then((res) => {
         if (res.newsList) { this.showNews = res.newsList }
       }).catch((err) => {
