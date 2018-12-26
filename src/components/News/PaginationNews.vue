@@ -16,9 +16,6 @@ export default {
     console.log(this.newsNumber)
   },
   methods: {
-    change: function (kind) {
-      console.log(event)
-    },
     getNews: function () {
       this.$emit('get')
     }
