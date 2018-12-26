@@ -9,7 +9,7 @@
       <li v-for="item in showNews" :key="item.id">
         <newsItem :newsItem="item" ></newsItem>
       </li>
-      <PaginationNews :newsNumber="this.newNumber" @get="get"></PaginationNews>
+      <PaginationNews :newsNumber="this.newNumber" :get="get"></PaginationNews>
     </div>
   </div>
 </div>
@@ -49,6 +49,7 @@ export default {
   },
   methods: {
     get: function (kind) {
+      console.log(this)
       getNews(kind).then((res) => {
         if (res.newsList) { this.showNews = res.newsList }
       }).catch((err) => {

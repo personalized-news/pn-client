@@ -11,13 +11,13 @@
 <script>
 export default {
   name: 'PaginationNews',
-  props: ['newsNumber'],
+  props: ['newsNumber', 'get'],
   mounted: function () {
     console.log(this.newsNumber)
   },
   methods: {
     getNews: function () {
-      this.$emit('get')
+      this.get()
     }
   }
 }
