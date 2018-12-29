@@ -20,7 +20,11 @@ service.interceptors.request.use(req => {
   console.log(req)
   return req
 }, err => {
-  console.log(err)
+  Message({
+    message: err.message,
+    type: 'error',
+    duration: 5 * 1000
+  })
   return Promise.reject(err)
 })
 
