@@ -36,7 +36,7 @@ export default {
   },
   methods: {
     getUsername () {
-      this.userName = getToken() // 在刚登入的时候，如果cookie中的用户信息还在的话,就直接显示登陆状态
+      this.userName = getToken('username') // 在刚登入的时候，如果cookie中的用户信息还在的话,就直接显示登陆状态
     },
     userLogout () {
       removeToken()

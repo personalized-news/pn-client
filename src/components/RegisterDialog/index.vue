@@ -44,7 +44,7 @@ export default {
           .then(res => {
             console.log(res)
             if (res.code === 0) {
-              setToken(this.RegisterForm.username)
+              setToken(this.RegisterForm.username, 'username')
               this.dialogFormVisible = false
               this.$message({ message: '注册成功', type: 'success' })
               this.reload()
