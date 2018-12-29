@@ -20,7 +20,10 @@ service.interceptors.request.use(req => {
   console.log(req)
   return req
 }, err => {
-  console.log(err)
+  Message({
+    message: err.message,
+    type: 'error'
+  })
   return Promise.reject(err)
 })
 
@@ -28,7 +31,6 @@ service.interceptors.response.use(res => {
   console.log(res)
   return res.data
 }, err => {
-  console.log(err)
   Message({
     message: err.message,
     type: 'error',
