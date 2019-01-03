@@ -21,6 +21,8 @@ import NewsNav from '@/components/News/NewsNav'
 import NewsItem from '@/components/News/NewsItem'
 import PaginationNews from '@/components/News/PaginationNews'
 import {getNews} from '@/api/news'
+import {logout} from '../api/user'
+import {removeToken} from '../utils/auth'
 
 export default {
   name: 'PnIndex',
@@ -39,6 +41,16 @@ export default {
   },
   created: function () {
     getNews('recommend').then((res) => {
+      if (res.message === 'invalid token') {
+        removeToken() // 移除无效token
+        logout().then(res => {
+          if (res.code === 0) {
+            this.$store.dispatch('setUserName', '') // 把store中的userName置为空串
+          }
+        }).catch((err) => {
+          this.$message.error(err.toString())
+        })
+      }
       if (res.newsList) {
         this.showNews = res.newsList
         this.$store.dispatch('addNews', res.newsList)

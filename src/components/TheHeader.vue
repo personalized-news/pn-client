@@ -39,6 +39,7 @@ export default {
       this.userName = this.$store.getters.userName // 在刚登入的时候，如果cookie中的用户信息还在的话,就直接显示登陆状态
     },
     userLogout () {
+      this.$store.dispatch('setUserName', '')
       removeToken()
       logout()
         .then(res => {
