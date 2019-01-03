@@ -38,11 +38,12 @@ export default {
       if (checkData(this.LoginForm)) {
         login(this.LoginForm.username, this.LoginForm.password)
           .then(res => {
-            console.log(res)
+            console.log(res.token)
             if (res.code === 0) {
-              setToken(this.LoginForm.username)
+              setToken(res.token) // 把token存入cookie
               this.dialogFormVisible = false
               this.$message({ message: '登录成功', type: 'success' })
+              this.$store.dispatch('setUserName', this.LoginForm.username) // 把username存在store里
               this.$emit('getName')
             } else {
               this.$message.error(res.message)

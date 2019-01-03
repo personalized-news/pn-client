@@ -1,5 +1,7 @@
 import axios from 'axios'
 import { Message } from 'element-ui'
+import { getToken } from './auth'
+
 // import config from '../../config/dev.env'
 
 // import store from '../store'
@@ -17,6 +19,8 @@ service.interceptors.request.use(req => {
   /* if (store.getters.token) {
     req.headers['X-Token'] = getToken()
   } */
+  const token = getToken()
+  if (token) req.headers.Authorization = token
   console.log(req)
   return req
 }, err => {
