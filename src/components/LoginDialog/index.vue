@@ -45,6 +45,7 @@ export default {
               this.$message({ message: '登录成功', type: 'success' })
               this.$store.dispatch('setUserName', this.LoginForm.username) // 把username存在store里
               this.$emit('getName')
+              this.$emit('loginIn')
             } else {
               this.$message.error(res.message)
             }

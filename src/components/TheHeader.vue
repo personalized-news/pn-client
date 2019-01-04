@@ -2,11 +2,11 @@
   <header>
     <p>Personalized News</p>
     <div>
-      <nav v-show="!username">
-        <login-dialog @getName="getUsername"></login-dialog>
+      <nav v-show="!username || !isLogin.status">
+        <login-dialog @getName="getUsername" @loginIn="loginIn"></login-dialog>
         <register-dialog></register-dialog>
       </nav>
-      <div v-show="username" class="userInfo">
+      <div v-show="username && isLogin.status" class="userInfo">
         <span>欢迎您！{{username}}</span>
         <el-button type="text" @click="userLogout" size="medium">登出</el-button>
       </div>
@@ -21,6 +21,7 @@ import { removeToken } from '@/utils/auth'
 
 export default {
   components: { LoginDialog, RegisterDialog },
+  props: ['isLogin'],
   data: function () {
     return {
       userName: ''
@@ -32,6 +33,7 @@ export default {
     }
   },
   created () {
+    console.log('重新渲染')
     this.getUsername()
   },
   methods: {
@@ -45,6 +47,9 @@ export default {
         .then(res => {
           this.getUsername()
         })
+    },
+    loginIn () {
+      this.isLogin.status = true
     }
   }
 }

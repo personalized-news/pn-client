@@ -1,7 +1,7 @@
 <template>
 <div class="container">
   <div class="top">
-    <the-header :isLogin="isLogin" :username="decodeURIComponent(this.$route.query.userId)"></the-header>
+    <the-header :isLogin="isLogin" ></the-header>
   </div>
   <div class="showNews">
     <NewsNav @get-news="get"></NewsNav>
@@ -36,21 +36,12 @@ export default {
     return {
       showNews: [],
       news: [],
-      newNumber: 10
+      newNumber: 10,
+      isLogin: { status: true }
     }
   },
   created: function () {
     getNews('recommend').then((res) => {
-      if (res.message === 'invalid token') {
-        removeToken() // 移除无效token
-        logout().then(res => {
-          if (res.code === 0) {
-            this.$store.dispatch('setUserName', '') // 把store中的userName置为空串
-          }
-        }).catch((err) => {
-          this.$message.error(err.toString())
-        })
-      }
       if (res.newsList) {
         this.showNews = res.newsList
         this.$store.dispatch('addNews', res.newsList)
@@ -61,20 +52,23 @@ export default {
   },
   methods: {
     get: function (kind) {
-      console.log(this)
       getNews(kind).then((res) => {
+        if (res.message === 'invalid token') {
+          alert('token过期,请重新登陆')
+          removeToken() // 移除无效token
+          logout().then(res => {
+            if (res.code === 0) {
+              this.$store.dispatch('setUserName', '') // 把store中的userName置为空串
+              this.isLogin.status = false
+            }
+          }).catch((err) => {
+            this.$message.error(err.toString())
+          })
+        }
         if (res.newsList) { this.showNews = res.newsList }
       }).catch((err) => {
         this.$message.error(err.toString())
       })
-    }
-  },
-  computed: {
-    isLogin: function () {
-      // 在没有参数传过来时，this.$route.query是空对象
-      // 用isLogin决定顶层的导航显示
-      // 刚进入页面时.this.$route.query是空对象
-      if (this.$route.query.userId === undefined) { return false } else return this.$route.query.userId.length > 0
     }
   },
   destroyed: function () {
