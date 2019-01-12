@@ -17,7 +17,7 @@
 import LoginDialog from './LoginDialog'
 import RegisterDialog from './RegisterDialog'
 import { logout } from '@/api/user'
-import { removeToken } from '@/utils/auth'
+import { removeToken, removeUserName, getUserName } from '@/utils/auth'
 
 export default {
   components: { LoginDialog, RegisterDialog },
@@ -38,11 +38,12 @@ export default {
   },
   methods: {
     getUsername () {
-      this.userName = this.$store.getters.userName // 在刚登入的时候，如果cookie中的用户信息还在的话,就直接显示登陆状态
+      this.userName = this.$store.getters.userName || getUserName()// 在刚登入的时候，如果cookie中的用户信息还在的话,就直接显示登陆状态
     },
     userLogout () {
       this.$store.dispatch('setUserName', '')
       removeToken()
+      removeUserName()
       logout()
         .then(res => {
           this.getUsername()

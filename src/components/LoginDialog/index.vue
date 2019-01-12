@@ -20,7 +20,7 @@
 <script>
 import { login } from '@/api/user'
 import { checkData } from '@/utils/validate'
-import { setToken } from '@/utils/auth'
+import { setToken, setUserName } from '@/utils/auth'
 
 export default {
   data () {
@@ -41,6 +41,7 @@ export default {
             console.log(res.token)
             if (res.code === 0) {
               setToken(res.token) // 把token存入cookie
+              setUserName(this.LoginForm.username)
               this.dialogFormVisible = false
               this.$message({ message: '登录成功', type: 'success' })
               this.$store.dispatch('setUserName', this.LoginForm.username) // 把username存在store里

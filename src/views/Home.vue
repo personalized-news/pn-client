@@ -20,9 +20,10 @@ import TheHeader from '@/components/TheHeader'
 import NewsNav from '@/components/News/NewsNav'
 import NewsItem from '@/components/News/NewsItem'
 import PaginationNews from '@/components/News/PaginationNews'
-import {getNews} from '@/api/news'
-import {logout} from '../api/user'
-import {removeToken} from '../utils/auth'
+import { getNews } from '@/api/news'
+import { Message } from 'element-ui'
+import { logout } from '../api/user'
+import { removeToken, removeUserName } from '../utils/auth'
 
 export default {
   name: 'PnIndex',
@@ -42,6 +43,23 @@ export default {
   },
   created: function () {
     getNews('recommend').then((res) => {
+      if (res.message === 'invalid token') {
+        Message({
+          message: 'Token过期，请重新登陆',
+          type: 'error',
+          duration: 5 * 1000
+        })
+        removeToken() // 移除无效token
+        removeUserName()
+        logout().then(res => {
+          if (res.code === 0) {
+            this.$store.dispatch('setUserName', '') // 把store中的userName置为空串
+            this.isLogin.status = false
+          }
+        }).catch((err) => {
+          this.$message.error(err.toString())
+        })
+      }
       if (res.newsList) {
         this.showNews = res.newsList
         this.$store.dispatch('addNews', res.newsList)
@@ -53,18 +71,6 @@ export default {
   methods: {
     get: function (kind) {
       getNews(kind).then((res) => {
-        if (res.message === 'invalid token') {
-          alert('token过期,请重新登陆')
-          removeToken() // 移除无效token
-          logout().then(res => {
-            if (res.code === 0) {
-              this.$store.dispatch('setUserName', '') // 把store中的userName置为空串
-              this.isLogin.status = false
-            }
-          }).catch((err) => {
-            this.$message.error(err.toString())
-          })
-        }
         if (res.newsList) { this.showNews = res.newsList }
       }).catch((err) => {
         this.$message.error(err.toString())
