@@ -9,7 +9,7 @@
       <li v-for="item in showNews" :key="item.id">
         <newsItem :newsItem="item" ></newsItem>
       </li>
-      <PaginationNews :newsNumber="this.newNumber" :get="get"></PaginationNews>
+      <PaginationNews :newsNumber="this.newNumber" :get="get" :total="total"></PaginationNews>
     </div>
   </div>
 </div>
@@ -38,11 +38,15 @@ export default {
       showNews: [],
       news: [],
       newNumber: 10,
-      isLogin: { status: true }
+      isLogin: { status: true },
+      total: 1
     }
   },
   created: function () {
-    getNews('recommend').then((res) => {
+    this.$store.dispatch('setNewsChannel', 'recommend')
+    getNews('recommend', 1).then((res) => {
+      this.total = res.total
+      console.log('传来的有页数', this.total)
       if (res.message === 'invalid token') {
         Message({
           message: 'Token过期，请重新登陆',
@@ -62,16 +66,23 @@ export default {
       }
       if (res.newsList) {
         this.showNews = res.newsList
-        this.$store.dispatch('addNews', res.newsList)
+        this.$store.dispatch('setNews', res.newsList)
       }
     }).catch((err) => {
       this.$message.error(err.toString())
     })
   },
   methods: {
-    get: function (kind) {
-      getNews(kind).then((res) => {
-        if (res.newsList) { this.showNews = res.newsList }
+    get: function (kind, pageNumber) {
+      if (kind !== '') {
+        this.$store.dispatch('setNewsChannel', kind)
+      } else kind = this.$store.getters.newsChannel
+      getNews(kind, pageNumber).then((res) => {
+        if (res.newsList) {
+          this.showNews = res.newsList
+          this.$store.dispatch('setNews', res.newsList)
+        }
+        document.querySelector('html').scrollTop = 0
       }).catch((err) => {
         this.$message.error(err.toString())
       })

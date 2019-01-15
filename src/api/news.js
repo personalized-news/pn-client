@@ -1,12 +1,9 @@
 import request from '@/utils/request'
 
-function getNews (kind = 'recommend') {
+function getNews (kind = 'recommend', pageNumber = 1) {
   return request({
     method: 'get',
-    url: '/news',
-    data: {
-      kind: kind
-    }
+    url: '/news?channel=' + kind + '&pageNumber=' + pageNumber
   })
 }
 
