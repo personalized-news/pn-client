@@ -23,7 +23,7 @@ import PaginationNews from '@/components/News/PaginationNews'
 import { getNews } from '@/api/news'
 import { Message } from 'element-ui'
 import { logout } from '../api/user'
-import { removeToken, removeUserName } from '../utils/auth'
+import { removeToken, removeUserName, setNewsChannel, getNewsChannel, setPageNumber, getPageNumber } from '../utils/auth'
 
 export default {
   name: 'PnIndex',
@@ -43,8 +43,12 @@ export default {
     }
   },
   created: function () {
-    this.$store.dispatch('setNewsChannel', 'recommend')
-    getNews('recommend', 1).then((res) => {
+    const newsChannel = getNewsChannel() || 'recommend'
+    const newsPageNumber = getPageNumber() || 1
+    setNewsChannel(newsChannel)
+    setPageNumber(newsPageNumber)
+    this.$store.dispatch('setNewsChannel', newsChannel)
+    getNews(newsChannel, newsPageNumber).then((res) => {
       this.total = res.total
       console.log('传来的有页数', this.total)
       if (res.message === 'invalid token') {
@@ -74,8 +78,10 @@ export default {
   },
   methods: {
     get: function (kind, pageNumber) {
+      setPageNumber(pageNumber)
       if (kind !== '') {
         this.$store.dispatch('setNewsChannel', kind)
+        setNewsChannel(kind)
       } else kind = this.$store.getters.newsChannel
       getNews(kind, pageNumber).then((res) => {
         if (res.newsList) {
