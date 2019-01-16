@@ -70,9 +70,9 @@ export default {
   methods: {
     toDetail: function () {
       const {href} = this.$router.resolve({path: 'news/detail'})
+      console.log('被查看新闻的id', this.newsItem.id)
       this.$store.dispatch('selectNews', {
         id: this.newsItem.id
-        // kind: this.newsItem.channelName
       })
       window.open(href, '_blank')
     }
